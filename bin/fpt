@@ -1,0 +1,77 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const fs = require('fs');
+
+const program = require('commander');
+const inquirer = require('inquirer')
+const download = require('download-git-repo');
+const chalk = require('chalk');
+const ora = require('ora');
+
+program
+    .version(require('../package').version )
+    .option('i, init', 'init Founder-Portal project template...')
+
+program
+    .usage('<command>')
+
+program.parse(process.argv);
+
+const nameQuestion = {
+    type: 'input',
+    message: `Project: `,
+    name: 'name',
+    default: 'founder-portal'
+};
+
+const versionQuestion = {
+    type: 'input',
+    message: `Version: `,
+    name: 'version',
+    default: '0.1.0'
+};
+
+
+if (program.init) {
+    console.info('');
+    inquirer.prompt([
+        nameQuestion,
+        versionQuestion,
+    ]).then(function (answers) {
+        const spinner = ora('下载 Founder-Portal 中...').start();
+        download('vuejs/vue-router-demos', answers.name, function (err) {
+            if (!err) {
+                spinner.clear()
+                console.info('');
+                console.info(chalk.green('-----------------------------------------------------'));
+                console.info('');
+                spinner.succeed(['项目创建成功,请继续进行以下操作:'])
+                console.info('');
+                console.info(chalk.cyan(` -  cd ${answers.name}`));
+                console.info(chalk.cyan(` -  npm install / yarn`));
+                console.info(chalk.cyan(` -  npm start / npm run dev`));
+                console.info('');
+                console.info('参考文档: ' + chalk.yellow('http://kb.fzyun.net/projects/portal/wiki/23本地portal开发环境部署'));
+                console.info('');
+                console.info(chalk.green('-----------------------------------------------------'));
+                console.info('');
+                fs.readFile(`${process.cwd()}/${answers.name}/package.json`, (err, data) => {
+                    if (err) throw err;
+                    let _data = JSON.parse(data.toString())
+                    _data.name = answers.name
+                    _data.version = answers.version
+                    let str = JSON.stringify(_data, null, 4);
+                    fs.writeFile(`${process.cwd()}/${answers.name}/package.json`, str, function (err) {
+                        if (err) throw err;
+                        process.exit()
+                    })
+                });
+            } else {
+                spinner.warn(['发生错误，请原地拍拍手，跺跺脚，连击666！！！'])
+                process.exit()
+            }
+        })
+    });
+}
+

@@ -1,0 +1,26 @@
+{
+  "name": "fportal-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "fportal": "bin/fpt",
+    "fpt": "bin/fpt"
+  },
+  "keywords": [],
+  "author": "ZAC",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.17.1",
+    "download-git-repo": "^1.0.2",
+    "inquirer": "^5.2.0",
+    "inquirer-select-line": "^1.1.1",
+    "ora": "^2.1.0"
+  }
+}
