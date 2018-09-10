@@ -76,8 +76,8 @@ if (program.init) {
                     let _data = JSON.parse(data.toString())
                     _data.name = answers.name
                     _data.version = answers.version
-                    _data.libraryFileName = answers.libraryFileName
-                    _data.libraryName = answers.libraryName
+                    _data.libraryFileName = answers.libraryFileName.indexOf("FounderLibrary_") === -1 ? "FounderLibrary_" + answers.libraryFileName : answers.libraryFileName;
+                    _data.libraryName = answers.libraryName.indexOf("founderlib.") === -1 ? "founderlib." + answers.libraryName : answers.libraryName;
 
                     let str = JSON.stringify(_data, null, 4);
                     fs.writeFile(`${process.cwd()}/${answers.name}/package.json`, str, function (err) {

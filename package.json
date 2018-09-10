@@ -1,6 +1,6 @@
 {
   "name": "fportal-cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -17,7 +17,7 @@
   "keywords": [],
   "author": "crazyvalse",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "chalk": "^2.4.1",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
