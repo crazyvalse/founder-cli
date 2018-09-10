@@ -32,15 +32,30 @@ const versionQuestion = {
     default: '0.1.0'
 };
 
+const libraryNameQuestion = {
+    type: 'input',
+    message: `library's name: `,
+    name: 'libraryName',
+    default: 'FounderLibrary_portal'
+};
+
+const libraryFileNameQuestion = {
+    type: 'input',
+    message: `library file's name(js): `,
+    name: 'libraryFileName',
+    default: 'founderlib.portal'
+};
 
 if (program.init) {
     console.info('');
     inquirer.prompt([
         nameQuestion,
         versionQuestion,
+        libraryNameQuestion,
+        libraryFileNameQuestion
     ]).then(function (answers) {
         const spinner = ora('下载 Founder-Portal 中...').start();
-        download('vuejs/vue-router-demos', answers.name, function (err) {
+        download('crazyvalse/portal-template', answers.name, function (err) {
             if (!err) {
                 spinner.clear()
                 console.info('');
@@ -61,6 +76,9 @@ if (program.init) {
                     let _data = JSON.parse(data.toString())
                     _data.name = answers.name
                     _data.version = answers.version
+                    _data.libraryFileName = answers.libraryFileName
+                    _data.libraryName = answers.libraryName
+
                     let str = JSON.stringify(_data, null, 4);
                     fs.writeFile(`${process.cwd()}/${answers.name}/package.json`, str, function (err) {
                         if (err) throw err;
