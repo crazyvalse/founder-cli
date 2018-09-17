@@ -36,14 +36,14 @@ const libraryNameQuestion = {
     type: 'input',
     message: `library's name: `,
     name: 'libraryName',
-    default: 'FounderLibrary_portal'
+    default: 'portal'
 };
 
 const libraryFileNameQuestion = {
     type: 'input',
     message: `library file's name(js): `,
     name: 'libraryFileName',
-    default: 'founderlib.portal'
+    default: 'portal'
 };
 
 if (program.init) {
